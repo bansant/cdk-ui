@@ -1,0 +1,430 @@
+<div class="bx--row dashboard-body">
+    <div>
+        
+    </div>
+    <div class="bx--row">
+        <div class="bx--col" style="text-align: right;">
+            Dealer :
+        </div>
+        <div class="bx--col">
+            <select (change)="onChange($event.target.value)">
+                <option *ngFor="let item of stores" 
+                [value]="item.storeId" 
+                [selected]="item.storeId== dealerId ? true : null">
+                    {{item.value}}
+            </option>
+            </select>
+        </div>
+        <div class="bx--col" style="text-align: right;">
+            Advisor :
+        </div>
+        <div class="bx--col">
+            <select (change)="onAdvisorChange($event.target.value)">
+                <option *ngFor="let item of advisors" 
+                [value]="item.empId" 
+                [selected]="item.empId== 'ALL' ? true : null">
+                    <span *ngIf="item.empId !== 'ALL'">{{item.firstName}} ({{item.empId}})</span>
+                    <span *ngIf="item.empId == 'ALL'">ALL</span>
+            </option>
+            </select>
+        </div>
+        <div class="bx--col" style="text-align: right;">
+            <a (click)="refresh()" style="cursor: pointer;">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+                Refresh
+            </a>
+        </div>
+    </div>
+    <div style="display: table;width: 140%;">
+        <div style="width:11%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Appointments</span>
+                <span style="text-align: right;display: block;padding: 5px;margin-top: -1.5rem;">
+                <a (click)="changeDate(true)" style="cursor: pointer;"> << </a>
+                    {{appointmentDate}}
+                <a (click)="changeDate(false)" style="cursor: pointer;"> >> </a>
+                </span>
+            </div>
+            <div *ngIf="loadingAppointment" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of dataSource" style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                    </div>
+                    <div style="display: table-cell;">
+                        <p>{{item.appointment.appointmentTime }}</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <div style="width:10%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Checked In</span>
+            </div>
+            <div *ngIf="loadingCheckedIn" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of checkedInRos" style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                        <div style="margin-top: 1em;" class="advisor-label">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                {{item.advisor.empId}}
+                            </span>
+                            <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                    <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                </span>
+                            </span>
+                        </div>
+   
+                    </div>
+                    <div  class="card-content">
+                        <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                        <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                        <p class="card-content-label">{{item.daysDiff}}</p>
+                        <p class="card-label">Days</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <div style="width:10%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Technician Assigned</span>
+            </div>
+            <div *ngIf="loadingPreAssigned" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of preAssignedRos " style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                        <div style="margin-top: 1em;" class="advisor-label">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                {{item.advisor.empId}}
+                            </span>
+                            <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                    <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="card-content">
+                        <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                        <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                        <p class="card-content-label">{{item.daysDiff}}</p>
+                        <p class="card-label">Days</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <div style="width:10%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Working</span>
+            </div>
+            <div *ngIf="loadingWorking" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of workingRos " style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                        <div style="margin-top: 1em;" class="advisor-label">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                {{item.advisor.empId}}
+                            </span>
+                            <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                    <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="card-content">
+                        <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                        <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                        <p class="card-content-label">{{item.daysDiff}}</p>
+                        <p class="card-label">Days</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <div style="width:20%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;text-align: center;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Vehicle on Hold</span>
+            </div>
+        
+            <div style="display: table;width: 100%;">
+                <div style="width:8%;display: table-cell;">
+                    <div  style="border: 1px solid #eee;">
+                        <span style="display: block;padding: 5px;font-weight: 500" >Parts on Hold</span>
+                    </div>
+                    <div *ngIf="loadingVehicleDisabled" style="padding: 10px;border: 1px solid #eee;">
+                        Loading..
+                    </div>
+                    <div *ngFor="let item of partsHold " style="padding: 10px;border: 1px solid #eee;">
+                        <div style="display: table;">
+                            <div style="display: table-cell;width: 85%;;">
+                                <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                                <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                                <div style="margin-top: 1em;" class="advisor-label">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                        {{item.advisor.empId}}
+                                    </span>
+                                    <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                        <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                            <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div  class="card-content">
+                                <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                                <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                                <p class="card-content-label">{{item.daysDiff}}</p>
+                                <p class="card-label">Days</p>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+                <div style="width:8%;display: table-cell;">
+                    <div  style="border: 1px solid #eee;">
+                        <span style="display: block;padding: 5px;font-weight: 500" >Authorization on Hold</span>
+                    </div>
+                    <div *ngIf="loadingVehicleDisabled" style="padding: 10px;border: 1px solid #eee;">
+                        Loading..
+                    </div>
+                    <div *ngFor="let item of authHold " style="padding: 10px;border: 1px solid #eee;">
+                        <div style="display: table;">
+                            <div style="display: table-cell;width: 85%;;">
+                                <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                                <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                                <div style="margin-top: 1em;" class="advisor-label">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                        {{item.advisor.empId}}
+                                    </span>
+                                    <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                        <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                            <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div  class="card-content">
+                                <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                                <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                                <p class="card-content-label">{{item.daysDiff}}</p>
+                                <p class="card-label">Days</p>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="width:8%;display: table-cell;">
+                    <div  style="border: 1px solid #eee;">
+                        <span style="display: block;padding: 5px;font-weight: 500" >Miscellaneous</span>
+                    </div>
+                    <div *ngIf="loadingVehicleDisabled" style="padding: 10px;border: 1px solid #eee;">
+                        Loading..
+                    </div>
+                    <div *ngFor="let item of misc " style="padding: 10px;border: 1px solid #eee;">
+                        <div style="display: table;">
+                            <div style="display: table-cell;width: 85%;;">
+                                <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                                <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                                <div style="margin-top: 1em;" class="advisor-label">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                        {{item.advisor.empId}}
+                                    </span>
+                                    <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                        <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                            <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div  class="card-content">
+                                <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                                <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                                <p class="card-content-label">{{item.daysDiff}}</p>
+                                <p class="card-label">Days</p>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+
+        <div style="width:10%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Pre Invoiced</span>
+            </div>
+            <div *ngIf="loadingPreInvoiced" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of preInvoicedData " style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                        <div style="margin-top: 1em;" class="advisor-label">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                {{item.advisor.empId}}
+                            </span>
+                            <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                    <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="card-content">
+                        <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                        <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                        <p class="card-content-label">{{item.daysDiff}}</p>
+                        <p class="card-label">Days</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div style="width:10%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500" >Ready To Post</span>
+            </div>
+            <div *ngIf="loadingReadyToPost" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of readyToPostData " style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                        <div style="margin-top: 1em;" class="advisor-label">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <span [title]="item.advisor.firstName" style="cursor:pointer">
+                                {{item.advisor.empId}}
+                            </span>
+                            <span *ngIf="item.technicianId && item.technicianId.length>0" style="color:green;">
+                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <span *ngFor="let technician of getDistinctTechnicians(item.technicianId);let isLast=last">
+                                    <span [title]="technician.firstName" style="cursor:pointer">{{technician.empId}} {{isLast ? '' : ', '}}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div  class="card-content">
+                        <!-- <p style="text-align: center;cursor: pointer;" (click)="openStatusTrail(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p> -->
+                        <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                        <p class="card-content-label">{{item.daysDiff}}</p>
+                        <p class="card-label">Days</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div style="width:10%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500;" >Closed Ros</span>
+                <span style="text-align: right;display: block;padding: 5px;margin-top: -1.5rem;">
+                <a (click)="changeClosedDate(true)" style="cursor: pointer;"> << </a>
+                    {{closedDate}}
+                <a (click)="changeClosedDate(false)" style="cursor: pointer;"> >> </a>
+                </span>
+            </div>
+            <div *ngIf="loadingClosed" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of closedDataSource" style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                    </div>
+                    <div  class="card-content">
+                        
+                        <p style="text-align: center;cursor: pointer;" (click)="openRoDetails(item,true)"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+
+        <div style="width:20%;margin-top: 2rem;display: table-cell;padding: 10px;">
+            <div  style="border: 1px solid #eee;">
+                <span style="display: block;padding: 5px;font-weight: 500;" >Sale</span>
+                <span style="text-align: right;display: block;padding: 5px;margin-top: -1.5rem;">
+                <a (click)="changeSaleDate(true)" style="cursor: pointer;"> << </a>
+                    {{soldDate}}
+                <a (click)="changeSaleDate(false)" style="cursor: pointer;"> >> </a>
+                </span>
+            </div>
+            <div *ngIf="loadingSales" style="padding: 10px;border: 1px solid #eee;">
+                Loading..
+            </div>
+            <div *ngFor="let item of sales" style="padding: 10px;border: 1px solid #eee;">
+                <div style="display: table;">
+                    <div style="display: table-cell;width: 85%;;">
+                        <div>{{item.customer.firstName}} &nbsp; {{item.customer.lastName}}</div>
+                        <div style="margin-top: 1em;">{{item.vehicle.model}} {{item.vehicle.year}}</div>
+                    </div>
+                    <!-- <div style="display: table-cell;">
+                        <p>{{item.appointment.appointmentTime}}</p>
+                    </div> -->
+    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Modal title</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>

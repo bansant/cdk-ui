@@ -1,0 +1,168 @@
+
+  
+
+  <div class="bx--row">
+    <div style="bx--col">
+        <h2 mat-dialog-title >
+            <div class="bx--row dashboard-body" style="margin-right: 2rem;margin-left: -1rem;" >
+                <span >
+                    Line Item(s) for Repair Order: {{roNum}}
+                </span>
+            </div>
+        </h2>
+        <div mat-dialog-content> 
+            <div class="bx--row dashboard-body" style="margin-right: 2rem;margin-left: -1rem; width: 100%;" *ngIf="loadingRODetails">
+            
+                <p>Loading...</p>
+            </div>
+    
+            <div class="bx--row dashboard-body" style="margin-right: 2rem;margin-left: -1rem;"  *ngIf="!loadingRODetails">
+                <table style="border: 1px solid grey" *ngIf="!closed">
+                  <tr
+                    
+                    style="
+                      background-color: #f4f4f4;
+                      border: 1px solid grey;
+                      height: 1.5rem; ;
+                    "
+                  >
+                  <td style="padding: 2px;text-align: center;width: 30%;">Line item Desc</td>
+                    <td style="padding: 2px; text-align: center">Status</td>
+                    <td style="padding: 2px; text-align: center">Estimated hrs</td>
+                    <td style="padding: 2px; text-align: center">Actual hrs</td>
+                    <td style="padding: 2px; text-align: center">Sold hrs</td>
+                    <td style="padding: 2px; text-align: center">Line Code</td>
+                    <td style="padding: 2px; text-align: center">Labor Type</td>
+                    <td style="padding: 2px; text-align: center">Labor Cost</td>
+                    <td style="padding: 2px; text-align: center">Labor Sale</td>
+                    <td style="padding: 2px; text-align: center">Misc Cost</td>
+                    <td style="padding: 2px; text-align: center">Misc Sale</td>
+                    <td style="padding: 2px; text-align: center">Part No</td>
+                    <td style="padding: 2px; text-align: center">Part Desc</td>
+                    <td style="padding: 2px; text-align: center">Parts Cost</td>
+                    <td style="padding: 2px; text-align: center">Parts Sale</td>
+                  </tr>
+                  <ng-container *ngFor="let item of roDetails.lineItems">
+                    <tr  style="border: 1px solid grey" [ngStyle]="{'color': (item.openRoDetail.statusCode == 'C92') || (!item.openRoDetail.statusCode) || item.openRoDetail.statusCode == ''? 'green':'red'}">
+                      <td style="padding: 2px;text-align: left;width: 30%;">
+                          {{ item.codeMaster.opCodeDescription }} ({{ item.codeMaster.opCode }})
+                      </td>
+                      <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.statusDesc }}
+                      </td>
+                      <td style="padding: 2px; text-align: center">
+                        {{ item.openRoDetail.lineEstimatedHours }}
+                      </td>
+                      <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.actualHours }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.soldHours }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.lineCode }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.laborType }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.laborCost }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.laborSale }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.miscCost }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.miscSale }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.partNo }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.partDesc }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.partsCost }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.openRoDetail.partsSale }}
+                        </td>
+                     
+                    </tr>
+                  </ng-container>
+                  
+                </table>
+                <table style="border: 1px solid grey" *ngIf="closed">
+                    <tr
+                      style="
+                        background-color: #f4f4f4;
+                        border: 1px solid grey;
+                        height: 1.5rem; ;
+                      "
+                    >
+                    <td style="padding: 2px;text-align: center;width: 30%;">Line item Desc</td>
+                      <td style="padding: 2px; text-align: center">Actual hrs</td>
+                      <td style="padding: 2px; text-align: center">Sold hrs</td>
+                      <td style="padding: 2px; text-align: center">Labor Type</td>
+                      <td style="padding: 2px; text-align: center">Labor Cost</td>
+                      <td style="padding: 2px; text-align: center">Labor Sale</td>
+                      <td style="padding: 2px; text-align: center">Misc Cost</td>
+                      <td style="padding: 2px; text-align: center">Misc Sale</td>
+                      <td style="padding: 2px; text-align: center">Parts Cost</td>
+                      <td style="padding: 2px; text-align: center">Parts Sale</td>
+                      
+                    </tr>
+                    <tr *ngFor="let item of roDetails.lineItems" style="border: 1px solid grey">
+                        <td style="padding: 2px;text-align: left;width: 30%;">
+                          {{ item.codeMaster.opCodeDescription }} ({{ item.codeMaster.opCode }})
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.actualHours }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.soldHours }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.laborType }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.laborCost }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.laborSale }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.miscCost }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.miscSale }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.partsCost }}
+                        </td>
+                        <td style="padding: 2px; text-align: center">
+                          {{ item.service.partsSale }}
+                        </td>
+                    </tr>
+                  </table>
+              </div>
+    
+        </div>
+        <div mat-dialog-actions align="end">
+          <span>
+            
+            <button
+              type="button"
+              mat-stroked-button
+              color="primary"
+              (click)="CloseDialog()"
+            >
+              Close
+            </button>
+          </span>
+        </div>
+      </div>
+  </div>
+  

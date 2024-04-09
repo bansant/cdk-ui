@@ -1,0 +1,41 @@
+@import "../assets/scss/scss-utils.scss";
+
+
+.footer__link{
+    font-family: "IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    // margin-right: 2rem 1rem .5rem;
+    margin-right: 4rem;
+    padding-top: 6px;
+    text-decoration: none;
+}
+::ng-deep.bx--content{
+padding-left: 1rem;
+padding-right: 1rem;
+}
+.footer {
+    height: 2rem;
+    margin-left: 2rem;
+    margin-right: 1rem !important;
+}   
+
+::ng-deep.tour-content ul {
+    list-style: disc;
+    margin-left: 1rem;
+}
+
+::ng-deep.arrow-button {
+    fill: white;
+
+}
+
+::ng-deep.mat-menu-panel {
+    border-radius: 0 !important;
+}
+
+::ng-deep.tour-tile {
+    font-family: "IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+    color: white;
+    background-color: #393939;
+}

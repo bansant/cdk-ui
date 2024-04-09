@@ -1,0 +1,78 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+@import "~@angular/cdk/overlay-prebuilt.css";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$carbon-angular-starter-primary: mat-palette($mat-indigo);
+$carbon-angular-starter-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$carbon-angular-starter-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$carbon-angular-starter-theme: mat-light-theme($carbon-angular-starter-primary, $carbon-angular-starter-accent, $carbon-angular-starter-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($carbon-angular-starter-theme);
+
+// To change the theme uncomment the below import and which ever carbon theme you want to use
+// @import '~carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/themes/theme-maps';
+// $carbon--theme: $carbon--theme--g100;
+// $carbon--theme: $carbon--theme--g90;
+// $carbon--theme: $carbon--theme--g10;
+
+@import "~carbon-components/scss/globals/scss/styles";
+@import "@carbon/charts/styles/styles.scss";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.error-focus {
+    outline-color:  red !important;
+    outline-style: solid !important;
+    outline-width: thin !important;
+}
+
+.error-label {
+    color: red;
+}
+.error-focus-checkbox .bx--checkbox-label:before {
+    border-color: red !important;
+}
+.error-focus-select {
+   border: 1px solid red !important;
+   max-height: 3rem !important;
+   height: auto !important;
+}
+.normal-focus {
+    outline: none !important;
+    border-bottom-color: currentColor;
+}
+
+.fill-height{
+    display: flex; 
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+// For Internet Explorer 11
+_:-ms-fullscreen, .fill-height{
+    min-height: calc(100vh - 64px);
+}
+
+.no-pointer-events {
+    pointer-events: none;
+}

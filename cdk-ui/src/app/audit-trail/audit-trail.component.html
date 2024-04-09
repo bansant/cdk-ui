@@ -1,0 +1,49 @@
+<div style="width:400px">
+    <h2 mat-dialog-title>Ro No: {{rowNum}}</h2>
+    <div mat-dialog-content> 
+        <p *ngIf="loadingAuditTrial">Loading...</p>
+
+        <table style="border: 1px solid grey;width: 100%;" *ngIf="!loadingAuditTrial">
+            <tr
+              style="
+                background-color: #f4f4f4;
+                border: 1px solid grey;
+                height: 1.5rem; ;
+              "
+            >
+            <td style="padding: 2px; text-align: center">Prev Status </td>
+            <td style="padding: 2px; text-align: center">Current Status </td>
+        
+            <td style="padding: 2px; text-align: center">Changed On</td>
+              
+            </tr>
+            <tr *ngFor="let item of auditTrial" style="border: 1px solid grey">
+             
+         
+              <td style="padding: 2px; text-align: center">
+                {{ getStatus(item.prevStatusCode) }}
+              </td>
+              <td style="padding: 2px; text-align: center">
+               {{ getStatus(item.currentStatusCode) }}
+              </td>
+              <td style="padding: 2px; text-align: center">
+                {{ item.createdOn | date: "MM/dd/yy,h:mm a" }}
+              </td>
+              
+            </tr>
+          </table>
+    </div>
+    <div mat-dialog-actions align="end">
+      <span>
+        
+        <button
+          type="button"
+          mat-stroked-button
+          color="primary"
+          (click)="CloseDialog()"
+        >
+          Close
+        </button>
+      </span>
+    </div>
+  </div>

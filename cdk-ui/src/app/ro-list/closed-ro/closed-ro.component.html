@@ -1,0 +1,61 @@
+<div class="bx--row dashboard-body">
+  <div class="bx--row" style="width: 100%;display: block;">
+    <div class="bx-col" >
+      <span style="text-align: right;display: block;padding: 5px;margin-top: -1.5rem;">
+        <a (click)="changeDate(true)" style="cursor: pointer;"> << </a>
+            {{closedDate}}
+        <a (click)="changeDate(false)" style="cursor: pointer;"> >> </a>
+        </span>
+    </div>
+  </div>
+
+  <div class="bx--row" *ngIf="loading">
+    <div class="bx-col" >
+      <span style="display: block;padding: 5px;font-style: italic;font-weight: 500;">
+        Loading Closed Ro...
+      </span>
+    </div>
+  </div>
+    <table style="border: 1px solid grey" *ngIf="!loading">
+      
+      <tr
+        style="
+          background-color: #f4f4f4;
+          border: 1px solid grey;
+          height: 1.5rem; ;
+        "
+      >
+      <td style="padding: 2px; text-align: center">Ro No</td>
+      <td style="padding: 2px; text-align: center">Customer No</td>
+      <td style="padding: 2px; text-align: center">Customer Name</td>
+      <td style="padding: 2px; text-align: center">Vehicle</td>
+      <td style="padding: 2px; text-align: center">Opened Date</td>
+      <td style="padding: 2px; text-align: center">Closed Date</td>
+        
+      </tr>
+      <tr *ngFor="let item of dataSource" style="border: 1px solid grey" >
+        <td style="padding: 2px; text-align: center">
+          <a (click)="gotoDetails(item.service.roNumber)" style="cursor: pointer">
+            {{item.service.roNumber}}
+          </a>
+        </td>
+   
+        <td style="padding: 2px; text-align: center">
+          {{ item.customer.custNo }}
+        </td>
+        <td style="padding: 2px; text-align: center">
+          {{ item.customer.firstName }} &nbsp; {{ item.customer.lastName }}
+        </td>
+  
+        <td style="padding: 2px; text-align: center">
+           {{ item.vehicle.model }} ({{ item.vehicle.year }})
+        </td>
+        <td style="padding: 2px; text-align: center">
+          {{ item.service.openedDate | date: "MM/dd/yy" }}
+        </td>
+        <td style="padding: 2px; text-align: center">
+          {{ item.service.closeDate | date: 'MM/dd/yy'}}
+        </td>
+      </tr>
+    </table>
+  </div>

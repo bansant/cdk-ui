@@ -1,0 +1,180 @@
+<div ibmGrid class="dashboard-wrapper">
+  <div class="bx--row dashboard-header">
+    <div class="bx--row header-title" style="display: table;width: 100%;">
+        <div class="bx--col-md-3" style="display: table-cell;">
+            RowNo: {{ roNum }}
+        </div>
+        <div class="bx--col-md-3" style="display: table-cell;">
+            Opened On: {{ roDetails.service.openedDate | date: 'dd/MM/yyyy'}}
+        </div>
+    </div>
+  </div>
+  <div class="border-box">
+    <div class="bx--row dashboard-body box">
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Customer No</label>
+          <span>{{ roDetails.customer.custNo }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>First Name</label>
+          <span>{{ roDetails.customer.firstName }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Last name</label>
+          <span>{{ roDetails.customer.lastName }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Email</label>
+          <span>{{ roDetails.customer.email }}&nbsp;</span>
+        </div>
+      </div>
+    </div>
+    <div class="bx--row dashboard-body box">
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Phone</label>
+          <span>{{ roDetails.customer.cellular }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Zip</label>
+          <span>{{ roDetails.customer.zipCode }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>&nbsp;</label>
+          <span>&nbsp;</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>&nbsp;</label>
+          <span>&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-box" style="margin-top: 1.5rem;">
+    <div class="bx--row dashboard-body box">
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Vin</label>
+          <span>{{ roDetails.vehicle.vin }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Make</label>
+          <span>{{ roDetails.vehicle.make }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Model</label>
+          <span>{{ roDetails.vehicle.model }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+            <label>Year</label>
+            <span>{{ roDetails.vehicle.year }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="bx--row dashboard-body box">
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>Mileage</label>
+          <span>{{ roDetails.vehicle.mileage }}</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+            <label>&nbsp;</label>
+            <span>&nbsp;</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>&nbsp;</label>
+          <span>&nbsp;</span>
+        </div>
+      </div>
+      <div class="bx--col-md-2 box-col">
+        <div style="float: left">
+          <label>&nbsp;</label>
+          <span>&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bx--row dashboard-body" style="margin-right: 2rem;margin-left: -1rem;">
+    <table style="border: 1px solid grey">
+      <tr
+        style="
+          background-color: #f4f4f4;
+          border: 1px solid grey;
+          height: 1.5rem; ;
+        "
+      >
+      <td style="padding: 2px;text-align: center;width: 30%;">Line item Desc</td>
+        <td style="padding: 2px; text-align: center">Actual hrs</td>
+        <td style="padding: 2px; text-align: center">Sold hrs</td>
+        <td style="padding: 2px; text-align: center">Labor Type</td>
+        <td style="padding: 2px; text-align: center">Labor Cost</td>
+        <td style="padding: 2px; text-align: center">Labor Sale</td>
+        <td style="padding: 2px; text-align: center">Misc Cost</td>
+        <td style="padding: 2px; text-align: center">Misc Sale</td>
+        <td style="padding: 2px; text-align: center">Parts Cost</td>
+        <td style="padding: 2px; text-align: center">Parts Sale</td>
+        <td style="padding: 2px; text-align: center">Closed On</td>
+      </tr>
+      <tr *ngFor="let item of roDetails.lineItems" style="border: 1px solid grey">
+          <td style="padding: 2px;text-align: left;width: 30%;">
+            {{ item.codeMaster.opCodeDescription }} ({{ item.codeMaster.opCode }})
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.actualHours }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.soldHours }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.laborType }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.laborCost }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.laborSale }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.miscCost }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.miscSale }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.partsCost }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.partsSale }}
+          </td>
+          <td style="padding: 2px; text-align: center">
+            {{ item.service.closed | date: 'dd/MM/yyyy' }}
+          </td>
+       
+      </tr>
+    </table>
+  </div>
+</div>

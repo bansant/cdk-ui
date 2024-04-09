@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta name="Description" content="The contractor management arm of IBM Procurement" />
+	<meta name="IBM.Country" content="US" />
+	<meta name="DC.Date" scheme="iso8601" content="2020-10-15" />
+	<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="OI700" />
+	<meta name="Abstract" content="Contingent Labour Platform homepage" />
+	<meta name="Industry" scheme="IBM_IndustryTaxonomy" content="B" />
+	<meta name="Keywords" content="IBM Procurement Contingent Labour Platform IBM Procurement Contractor Management" />
+	<meta name="Effective" scheme="W3CDTF" content="2020-10-15" />
+	<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="ZZ999" />
+	<meta name="DC.Language" scheme="rfc1766" content="en-US" />
+	<meta name="Security" content="Public" />
+	<meta name="IBM.Industry" scheme="IBM_IndustryTaxonomy" content="B" />
+	<meta name="Robots" content="index,follow" />
+	<meta name="DC.Publisher" content="IBM Corporation - Contingent Labour Platform" />
+	<meta name="IBM.Effective" scheme="W3CDTF" content="2020-10-15" />
+
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<!-- <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache"> -->
+	<meta http-equiv="cache-control" content="no-store">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=11">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Service orders</title>
+	<base href="/">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="manifest" href="manifest.json">
+	<link rel="mask-icon" href="assets/icons/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="shortcut icon" href="assets/images/labour-logo.png">
+	<meta name="msapplication-config" content="assets/icons/browserconfig.xml">
+	<meta name="theme-color" content="#ffff00">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+ 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script>
+		
+		// IE 11 element.closest and .matches polyfill
+		if (!Element.prototype.matches) {
+  			Element.prototype.matches = Element.prototype.msMatchesSelector || 
+										Element.prototype.webkitMatchesSelector;
+		}
+		
+		if (!Element.prototype.closest) {
+			Element.prototype.closest = function(s) {
+				var el = this;
+			
+				do {
+					if (Element.prototype.matches.call(el, s)) return el;
+					el = el.parentElement || el.parentNode;
+				} while (el !== null && el.nodeType === 1);
+				return null;
+			};
+		}
+
+		// IE 11 String.includes polyfill
+		if (!String.prototype.includes) {
+			String.prototype.includes = function(search, start) {
+				'use strict';
+
+				if (search instanceof RegExp) {
+				throw TypeError('first argument must not be a RegExp');
+				} 
+				if (start === undefined) { start = 0; }
+				return this.indexOf(search, start) !== -1;
+			};
+		}
+
+		// IE 11 Array.includes Polyfill
+		if (![].includes) {
+			Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
+				'use strict';
+				var O = Object(this);
+				var len = parseInt(O.length) || 0;
+				if (len === 0) {
+					 false;
+				}
+				var n = parseInt(arguments[1]) || 0;
+				var k;
+				if (n >= 0) {
+					k = n;
+				} else {
+					k = len + n;
+					if (k < 0) {k = 0;}
+				}
+				var currentElement;
+				while (k < len) {
+					currentElement = O[k];
+					if (searchElement === currentElement ||
+						(searchElement !== searchElement && currentElement !== currentElement)) {
+						return true;
+					}
+					k++;
+				}
+				return false;
+			};
+		}
+
+		// IE11 Object assign polyfill
+		if (typeof Object.assign != 'function') {
+				Object.assign = function (target) {
+					'use strict';
+					if (target == null) {
+						throw new TypeError('Cannot convert undefined or null to object');
+					}
+		
+					target = Object(target);
+					for (var index = 1; index < arguments.length; index++) {
+						var source = arguments[index];
+						if (source != null) {
+							for (var key in source) {
+								if (Object.prototype.hasOwnProperty.call(source, key)) {
+									target[key] = source[key];
+								}
+							}
+						}
+					}
+					return target;
+				};
+			}
+	</script>
+</head>
+<body>
+	<!-- / FUSE Splash Screen -->
+	<app-root>
+		
+	</app-root>
+</body>
+</html>
+
+<!-- Hotjar Tracking Code  -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:42920,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+

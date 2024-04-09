@@ -1,0 +1,62 @@
+
+<div ibmGrid class="dashboard-wrapper">
+  <div class="bx--row dashboard-header">
+    <div class="header-title">Service orders</div>
+  </div>
+  <!-- <div class="bx--row">
+    <div class="bx--col" style="text-align: right;">
+        Dealer :
+    </div>
+    <div class="bx--col">
+        <select (change)="onChange($event.target.value)">
+            <option *ngFor="let item of stores" 
+            [value]="item.storeId" 
+            [selected]="item.storeId== dealerId ? true : null">
+                {{item.value}}
+        </option>
+        </select>
+    </div>
+    <div class="bx--col" style="text-align: right;">
+        Advisor :
+    </div>
+    <div class="bx--col">
+        <select (change)="onAdvisorChange($event.target.value)">
+            <option *ngFor="let item of advisors" 
+            [value]="item.empId" 
+            [selected]="item.empId== 'ALL' ? true : null">
+                {{item.firstName}}
+        </option>
+        </select>
+    </div>
+  </div> -->
+  <div style="width: 97%;">
+    <mat-tab-group>
+      
+
+      <mat-tab label="Swim Lane"> 
+        <clapp-swim-lane></clapp-swim-lane>
+      </mat-tab>   
+        <!-- <mat-tab label="Appointments" active="true"> 
+        <clapp-appointment [dataSource]="dataSource" 
+        [appointmentDate] ="appointmentDate"
+        (loadAppointmentAction) ="loadAppointmentOnDateChange($event)"
+        [loading]="loadingAppointment"
+        ></clapp-appointment>
+      </mat-tab>
+      <mat-tab label="Open Ro" active="true"> 
+        <clapp-open-ro [dataSource]="openRos" [loading]="loadingOpenRos"></clapp-open-ro>
+      </mat-tab>
+      <mat-tab label="Closed Ro"> 
+        <clapp-closed-ro [dataSource]="closedDataSource" [closedDate] ="closedDate"
+        (loadClosedRoAction) ="loadClosedRoOnDateChange($event)"
+        [loading]="loadingClosed"></clapp-closed-ro> 
+      </mat-tab>
+      <mat-tab label="Sales Ro"> 
+        <clapp-sales [dataSource]="sales" [soldDate] ="soldDate"
+        (loadClosedRoAction) ="loadSalesDateRange($event)"
+        [loading]="loadingSales"></clapp-sales> 
+      </mat-tab> -->
+    
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,453 @@
+@import "@carbon/type/scss/type";
+@include carbon--type-reset();
+@import "../../assets/scss/scss-utils.scss";
+
+.table-header {
+    height: 48px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.table-header-switcher {
+    margin-right: -12rem;
+}
+
+.table-header-switcher ::ng-deep .bx--content-switcher {
+    height: 100%;
+    width: 368px;
+}
+
+.mat-tab-label ::ng-deep {
+    cursor: pointer;
+    box-sizing: border-box;
+    opacity: 0.6;
+    text-align: left;
+    justify-content: left;
+    min-width: -1rem;
+    display: inline-flex;
+    align-items: inherit;
+}
+
+.sidenav {
+    bottom: 32px;
+}
+
+.dashboard-wrapper {
+    padding-left: 50px;
+    margin: 0 -2rem;
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.dashboard-header {
+    justify-content: space-between;
+    padding: 40px 32px 40px 48px;
+    margin: 0;
+}
+
+.dashboard-body {
+    margin: 0;
+    justify-content: left;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding: 32px;
+    flex-wrap: nowrap;
+}
+
+.mat-tab-items {
+    justify-content: left;
+    text-align: left;
+    margin-left: -1.5rem;
+}
+
+.header-title {
+    @each $name, $value in $productive-heading-04 {
+        #{$name}: $value;
+    }
+}
+
+.header-subtitle {
+    @each $name, $value in $body-long-02 {
+        #{$name}: $value;
+    }
+}
+
+.chevron-in-button {
+    fill: white;
+}
+
+.header-button button {
+    padding-right: 12px;
+    width: 152px;
+    margin-left: 0.5rem;
+}
+
+.createOptionsPopover {
+    background-color: #fff;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+    padding: 0 1rem;
+    width: 288px;
+}
+
+.createOptionsPopover :not(:last-child) {
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.draftOptionsPopover {
+    background-color: #fff;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+    padding: 0 1rem;
+    width: 288px;
+}
+
+.draftOptionsPopover :not(:last-child) {
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.trashOptionsPopover {
+    background-color: #fff;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+    padding: 0 1rem;
+    width: 288px;
+}
+
+.optionsDiv {
+    padding: 1rem 0;
+}
+
+.draftDiv {
+    padding: 1rem 0;
+}
+
+.trashOptionsDiv {
+    padding: 1rem 0;
+}
+
+.optionIcon {
+    padding-left: 0rem !important;
+    color: #777777;
+}
+
+.optionRow {
+    cursor: pointer;
+    height: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.optionsPopover {
+    margin-top: 0.5rem;
+    background-color: #fff;
+    padding-top: 0.8rem;
+    padding-left: 0.8rem;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 0.1rem;
+}
+
+.optionsDiv:hover {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.overview-tile {
+    background-color: white;
+    height: 100%;
+    padding: 24px 32px;
+}
+
+.tile-number {
+    @each $name, $value in $productive-heading-05 {
+        #{$name}: $value;
+    }
+
+    margin: 12px 0;
+}
+
+.tile-body {
+    margin: 1rem 0;
+}
+
+.tile-body ::ng-deep .bx--label {
+    width: 75%;
+}
+.tile-links {
+    margin-top: 0.5rem;
+    margin-left: 0.1rem;
+}
+.tile-links a {
+    text-decoration: none;
+}
+
+.tile-links a:hover {
+    text-decoration: underline;
+}
+
+.overview-donut ::ng-deep .chartContainer {
+    background-color: white;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview-donut ::ng-deep .bx--chart-holder {
+    background-color: white;
+}
+
+.overview-donut ::ng-deep .chart-div {
+    margin: 0;
+}
+
+.tile-header {
+    @each $name, $value in $label-01 {
+        #{$name}: $value;
+    }
+}
+
+.filter-open-padding {
+    padding-right: calc(16rem + 16px);
+    transition: padding-right 0.11s;
+}
+
+.filter-closed-padding {
+    padding-right: 32px;
+    transition: padding-right 0.11s;
+}
+
+.options-wrapper {
+    margin-top: 40px;
+}
+
+.search-wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.search-dropdown {
+    width: 184px;
+}
+
+.search-dropdown ::ng-deep .bx--dropdown {
+    height: 100%;
+    max-height: 100%;
+    background-color: white;
+    border-bottom: none;
+    border-right: 1px solid #e0e0e0;
+}
+
+.search-dropdown ::ng-deep .bx--list-box__field {
+    height: 100%;
+}
+
+.search-dropdown ::ng-deep .bx--list-box__menu {
+    background-color: white;
+}
+
+.search-input ::ng-deep .bx--search {
+    height: 100%;
+}
+
+.search-input ::ng-deep .bx--search-close {
+    display: none;
+}
+
+.search-input ::ng-deep .bx--search-input {
+    height: 100%;
+    background-color: white;
+    border-bottom: none;
+    padding: 0 3rem;
+}
+
+.search-input ::ng-deep .bx--search-magnifier {
+    display: none;
+}
+
+.search-input ::ng-deep svg {
+    display: none;
+}
+
+.search-dropdown-light-theme ::ng-deep .bx--list-box__menu {
+    background-color: white;
+}
+
+.search-dropdown-light-theme ::ng-deep .bx--list-box__menu-item__selected-icon {
+    display: none;
+}
+
+.search-close-button {
+    margin-left: -46px;
+}
+
+.search-magnifier-button {
+    margin-right: -46px;
+    z-index: 1;
+}
+
+.data-grid ::ng-deep .bx--pagination {
+    background-color: white;
+}
+
+.data-grid ::ng-deep .bx--pagination__control-buttons {
+    display: flex;
+}
+
+.data-grid ::ng-deep .bx--table-sort__flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.settings-popover {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.column-toggle ::ng-deep .bx--toggle__label {
+    margin: 0;
+}
+
+.column-toggle ::ng-deep .bx--toggle__switch {
+    width: 100%;
+}
+
+.settings-accordion ::ng-deep .bx--accordion__content {
+    padding-right: 0.2rem;
+}
+
+::ng-deep .bx--accordion__title {
+    font-weight: 500;
+}
+
+.popover {
+    margin-top: 0.25rem;
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+}
+
+.settings-accordion ::ng-deep .bx--accordion__content {
+    padding-right: 0.2rem;
+}
+
+::ng-deep .bx--accordion__title {
+    font-weight: 500;
+}
+
+.settings-header {
+    margin-bottom: 1rem;
+    background-color: white;
+    color: black;
+    font-size: 1.125rem;
+}
+
+.settings-accordion ::ng-deep .mat-expansion-panel {
+    width: 100%;
+}
+
+.settings-accordion ::ng-deep .bx--radio-button-wrapper {
+    width: 100%;
+}
+
+.settings-accordion ::ng-deep .bx--radio-button__label {
+    justify-content: flex-start;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+}
+
+.settings-accordion ::ng-deep .mat-expansion-panel-header {
+    height: 34px !important;
+}
+
+.settings-accordion ::ng-deep .mat-expansion-panel {
+    border-radius: 0px;
+    border-top: 1px solid var(--cds-ui-03, #e0e0e0);
+    box-shadow: none;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.settings-icon {
+    pointer-events: none;
+}
+
+.active-sidenav-item ::ng-deep .bx--side-nav__submenu {
+    border-left: 4px solid #0062ff;
+    background-color: #e5e5e5;
+    color: #171717;
+}
+
+.newRequestOptionsPopover {
+    margin-top: 0.25rem;
+    background-color: #fff;
+    padding: 0.5rem;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+}
+
+#newRequestDiv:hover {
+    background-color: rgb(241, 241, 241);
+}
+
+#newRequestDiv {
+    cursor: pointer;
+}
+
+.optionIcon {
+    padding-left: 0rem !important;
+    color: #777777;
+    margin-top: 0.5rem;
+    margin-left: 0.2rem;
+    font-size: 14px;
+}
+
+.optionRow {
+    height: 2rem;
+    width: 6rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.report-type-button {
+    padding-right: 12px;
+}
+
+.report-type-button svg {
+    margin-left: 32px;
+}
+
+.report-type-radios ::ng-deep .bx--radio-button-wrapper {
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.report-type-radios ::ng-deep .bx--radio-button-group {
+    width: 100%;
+}
+
+.box {
+    display: table;
+    width: 100%;
+}
+
+.box-col {
+    display: table-cell;
+}
+
+span, label {
+    display:block;
+}
+span {
+    margin-top: .6rem;
+}
+
+.border-box {
+    border: 1px solid #d7d7d7e8;
+    margin-right: 3rem ;
+    border-radius: 4px;
+}

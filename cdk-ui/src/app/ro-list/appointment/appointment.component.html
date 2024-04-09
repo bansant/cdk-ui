@@ -1,0 +1,58 @@
+<div class="bx--row dashboard-body">
+    <div class="bx--row" style="width: 100%;display: block;">
+      <div class="bx-col" >
+        <span style="text-align: right;display: block;padding: 5px;margin-top: -1.5rem;">
+          <a (click)="changeDate(true)" style="cursor: pointer;"> << </a>
+              {{appointmentDate}}
+          <a (click)="changeDate(false)" style="cursor: pointer;"> >> </a>
+          </span>
+      </div>
+    </div>
+
+    <div class="bx--row" *ngIf="loading">
+      <div class="bx-col" >
+        <span style="display: block;padding: 5px;font-style: italic;font-weight: 500;">
+          Loading Appointments...
+        </span>
+      </div>
+    </div>
+
+    <table style="border: 1px solid grey" *ngIf="!loading">
+      <tr
+        style="
+          background-color: #f4f4f4;
+          border: 1px solid grey;
+          height: 1.5rem; ;
+        "
+      >
+      <td style="padding: 2px; text-align: center">Appointment No</td>
+      <td style="padding: 2px; text-align: center">Customer No</td>
+      <td style="padding: 2px; text-align: center">Customer Name</td>
+      <td style="padding: 2px; text-align: center">Vehicle</td>
+        <td style="padding: 2px; text-align: center">Appointment Date</td>
+        <td style="padding: 2px; text-align: center">Appointment Time</td>
+      </tr>
+      <tr *ngFor="let item of dataSource" style="border: 1px solid grey">
+        <td style="padding: 2px; text-align: center">
+          {{ item.appointment.appointmentId }}
+        </td>
+   
+        <td style="padding: 2px; text-align: center">
+          {{ item.customer.custNo }}
+        </td>
+        <td style="padding: 2px; text-align: center">
+          {{ item.customer.firstName }} &nbsp; {{ item.customer.lastName }}
+        </td>
+
+        <td style="padding: 2px; text-align: center">
+           {{ item.vehicle.model }} ({{ item.vehicle.year }})
+        </td>
+        <td style="padding: 2px; text-align: center">
+          {{ item.appointment.appointmentDate | date: 'MM/dd/yy'}}
+        </td>
+        <td style="padding: 2px; text-align: center">
+          {{ item.appointment.appointmentTime }}
+        </td>
+      </tr>
+    </table>
+  </div>
